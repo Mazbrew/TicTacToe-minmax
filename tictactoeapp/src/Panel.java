@@ -76,6 +76,10 @@ public class Panel extends JPanel implements MouseInputListener{
         }
     }
 
+    public void announceWinner(){
+        
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         

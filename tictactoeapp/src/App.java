@@ -14,6 +14,7 @@ public class App {
                 }
                 System.out.println();
             }
+            System.out.println(board.getWinner());
         }
     }
 }
