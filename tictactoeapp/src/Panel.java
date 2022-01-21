@@ -33,7 +33,7 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
     private boolean ai = false;
     private Button aiButton;
     private Button resetButton;
-    final BufferedImage image = ImageIO.read(getClass().getResource("reset.png"));
+    final BufferedImage image = ImageIO.read(getClass().getResource("images/reset.png"));
 
     public Panel(Board board) throws IOException{
         super();
