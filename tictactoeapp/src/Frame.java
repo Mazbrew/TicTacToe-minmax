@@ -19,6 +19,7 @@ public class Frame extends JFrame{
         this.getContentPane().setPreferredSize(new Dimension(contentWidth,contentHeight));
         this.pack();
         this.setTitle("TicTacToe");
+        this.setResizable(false);
         this.setLocation((int)(width/2-contentWidth/2),(int)(height/2-contentHeight/2));
         this.setContentPane(panel);
         this.setVisible(true);

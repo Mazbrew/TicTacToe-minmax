@@ -1,9 +1,10 @@
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
+import javax.imageio.ImageIO;
 
+import java.awt.image.BufferedImage;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import java.awt.event.MouseEvent;
 
 import java.awt.Graphics;
@@ -11,6 +12,9 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Font;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Panel extends JPanel implements MouseInputListener,KeyListener{
     private int spacing = 25;
@@ -28,9 +32,11 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
     private int sliderWidth =75;
     private int buttonSize = 25;
     private boolean ai = false;
-    private Button button;
+    private Button aiButton;
+    private Button resetButton;
+    final BufferedImage image = ImageIO.read(getClass().getResource("reset.png"));
 
-    public Panel(Board board){
+    public Panel(Board board) throws IOException{
         super();
         this.setLayout(null);
         this.addMouseListener(this);
@@ -43,7 +49,11 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
         this.setFocusable(true);
         this.requestFocus();
 
-        button = new Button(0,0,125,50);
+        
+
+        aiButton = new Button(0,0,125,50);
+        resetButton = new Button(325,0,125,50);
+
         fillSquareArray();
 
     }
@@ -94,6 +104,9 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
             g.setColor(Color.white);
             g.fillOval(50/2-buttonSize/2+sliderWidth, 50/2-buttonSize/2, buttonSize, buttonSize);
         }
+
+        g2 = (Graphics2D) g;
+        g2.drawImage(image,325,0,null);
     }
 
     public void paintBoard(Graphics g){
@@ -143,8 +156,13 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(button.checkLocation(e.getX(), e.getY())==true){
+        if(aiButton.checkLocation(e.getX(), e.getY())==true){
             setAi();
+        }
+        
+        if(resetButton.checkLocation(e.getX(),e.getY())==true){
+            board.clearBoard();
+            board.setTurnCount();
         }
         
         updateBoard(e.getX(),e.getY());
