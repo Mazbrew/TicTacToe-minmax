@@ -13,7 +13,6 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Font;
 
-import java.io.File;
 import java.io.IOException;
 
 public class Panel extends JPanel implements MouseInputListener,KeyListener{

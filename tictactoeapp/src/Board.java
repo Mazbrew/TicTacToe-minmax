@@ -151,7 +151,7 @@ public class Board{
     }
 
     public String getDrawString(){
-        if(boardFull()==true){
+        if(boardFull()==true && winner==0){
             return "TIE";
         }else if(winner==1){
             return "X WON";
