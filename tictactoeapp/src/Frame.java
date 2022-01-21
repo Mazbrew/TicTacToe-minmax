@@ -3,7 +3,8 @@ import java.awt.*;
 
 
 public class Frame extends JFrame{
-    private int size = 400;
+    private int contentWidth = 400;
+    private int contentHeight = 450;
     
 
     private Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -13,9 +14,9 @@ public class Frame extends JFrame{
     public Frame(Panel panel){
         super();
         this.setLayout(null);
-        this.getContentPane().setPreferredSize(new Dimension(size,size));
+        this.getContentPane().setPreferredSize(new Dimension(contentWidth,contentHeight));
         this.pack();
-        this.setLocation((int)(width/2-size/2),(int)(height/2-size/2));
+        this.setLocation((int)(width/2-contentWidth/2),(int)(height/2-contentHeight/2));
         this.setContentPane(panel);
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

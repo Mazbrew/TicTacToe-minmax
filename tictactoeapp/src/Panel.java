@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.Font;
 
 public class Panel extends JPanel implements MouseInputListener,KeyListener{
     private int spacing = 25;
@@ -18,12 +19,14 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
 
     private Board board;
 
+    private Graphics2D g2;
+
     public Panel(Board board){
         super();
         this.setLayout(null);
         this.addMouseListener(this);
         this.setLocation(0,0);
-        this.setSize(400,400);
+        this.setSize(400,450);
         this.setVisible(true);
         this.board = board;
         
@@ -61,6 +64,7 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
         g.setColor(new Color(240,234,214));
         g.fillRect(0, 0, 400, 400);
         paintBoard(g);
+        paintAnnouncer(g);
     }
 
     public void paintBoard(Graphics g){
@@ -69,7 +73,7 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
                 g.setColor(new Color(211,211,211));
                 g.fillRect((block*j)+j*spacing + spacing, (block*i)+i*spacing+spacing, block, block);
                 g.setColor(Color.black);
-                Graphics2D g2 = (Graphics2D) g;
+                g2 = (Graphics2D) g;
                 g2.setStroke(new BasicStroke(3));
                 switch(board.getTileValue(j, i)){
                     case 'x':
@@ -82,6 +86,18 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
                 }
             }
         }
+    }
+
+    public void paintAnnouncer(Graphics g){
+        g.setColor(new Color(211,211,211).darker());
+        g.fillRect(0, 400, 400, 50);
+        g.setColor(new Color(240,234,214).brighter());
+        g2 = (Graphics2D) g;
+        Font font = new Font("Arial",Font.BOLD,25);
+    
+        g2.setFont(font);
+        g2.drawString(board.getDrawString(), 400/2-g.getFontMetrics().stringWidth(board.getDrawString())/2, 430);
+
     }
 
     public void announceWinner(){

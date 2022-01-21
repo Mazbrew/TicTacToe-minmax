@@ -9,6 +9,7 @@ public class Board{
     }
 
     public void clearBoard(){
+        winner =0;
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
                 boardArray[i][j] ='0';
@@ -116,7 +117,7 @@ public class Board{
     }
 
     public void setTileValue(int x,int y){
-        if(boardArray[y][x]=='0'){
+        if(boardArray[y][x]=='0' && winner==0){
             boardArray[y][x]=player;
             playerChange();
             checkEnd();
@@ -129,5 +130,30 @@ public class Board{
 
     public void setTurnCount(){
         turnCount=0;
+    }
+
+    public boolean boardFull(){
+
+        for(int i =0;i<3;i++){
+            for(int j =0;j<3;j++){
+                if(boardArray[j][i]=='0'){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public String getDrawString(){
+        if(boardFull()==true){
+            return "TIE";
+        }else if(winner==1){
+            return "X WON";
+        }else if(winner ==-1){
+            return "O WON";
+        }
+
+        return player + "'s turn";
     }
 }
