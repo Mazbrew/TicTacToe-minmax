@@ -1,7 +1,5 @@
 import java.awt.Rectangle;
 
-import org.w3c.dom.css.Rect;
-
 public class Button {
     private Rectangle rect;
 
