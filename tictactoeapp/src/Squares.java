@@ -8,7 +8,7 @@ public class Squares {
     public Squares(int x, int y,int spacing,int block){
         this.x = x;
         this.y = y;
-        rect = new Rectangle((block*x)+x*spacing + spacing,(block*y)+y*spacing+spacing,block,block);
+        rect = new Rectangle((block*x)+x*spacing + spacing,(block*y)+y*spacing+spacing+50,block,block);
     }
  
     public boolean checkLocation(int mouseX,int mouseY){
