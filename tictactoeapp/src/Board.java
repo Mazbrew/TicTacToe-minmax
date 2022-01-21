@@ -26,6 +26,10 @@ public class Board{
         turnCount++;
     }
 
+    public void playerReset(){
+        player = 'x';
+    }
+
     public char getTileValue(int x,int y){
         return boardArray[y][x];
     }
@@ -130,6 +134,7 @@ public class Board{
 
     public void setTurnCount(){
         turnCount=0;
+        playerReset();
     }
 
     public boolean boardFull(){

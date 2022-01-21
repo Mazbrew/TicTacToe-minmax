@@ -89,7 +89,7 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
     }
 
     public void paintAnnouncer(Graphics g){
-        g.setColor(new Color(211,211,211).darker());
+        g.setColor(new Color(211,211,211).darker().darker());
         g.fillRect(0, 400, 400, 50);
         g.setColor(new Color(240,234,214).brighter());
         g2 = (Graphics2D) g;
