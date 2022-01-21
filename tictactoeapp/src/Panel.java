@@ -1,6 +1,9 @@
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import java.awt.event.MouseEvent;
 
 import java.awt.Graphics;
@@ -8,7 +11,7 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Color;
 
-public class Panel extends JPanel implements MouseInputListener{
+public class Panel extends JPanel implements MouseInputListener,KeyListener{
     private int spacing = 25;
     private int block = 100;
     private Squares[][] squareArray= new Squares[3][3];
@@ -23,6 +26,11 @@ public class Panel extends JPanel implements MouseInputListener{
         this.setSize(400,400);
         this.setVisible(true);
         this.board = board;
+        
+        this.addKeyListener(this);
+        this.setFocusable(true);
+        this.requestFocus();
+        
         fillSquareArray();
 
     }
@@ -119,6 +127,28 @@ public class Panel extends JPanel implements MouseInputListener{
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        
+        
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+       
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode()== KeyEvent.VK_F4){
+            board.clearBoard();
+            board.setTurnCount();
+            repaint();
+        }
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
         
         
     }

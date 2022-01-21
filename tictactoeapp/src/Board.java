@@ -17,12 +17,12 @@ public class Board{
     }
 
     public void playerChange(){
-        turnCount++;
         if(turnCount%2==0){
-            player ='x';
-        }else{
             player ='o';
+        }else{
+            player ='x';
         }
+        turnCount++;
     }
 
     public char getTileValue(int x,int y){
@@ -125,5 +125,9 @@ public class Board{
 
     public int getWinner(){
         return winner;
+    }
+
+    public void setTurnCount(){
+        turnCount=0;
     }
 }
