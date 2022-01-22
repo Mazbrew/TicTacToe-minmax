@@ -156,6 +156,8 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
     public void mouseReleased(MouseEvent e) {
         if(aiButton.checkLocation(e.getX(), e.getY())==true){
             setAi();
+            board.clearBoard();
+            board.setTurnCount();
         }
         
         if(resetButton.checkLocation(e.getX(),e.getY())==true){

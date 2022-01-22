@@ -93,20 +93,11 @@ public class Board{
         boardArray[move.getY()][move.getX()] = player;
     }
 
-
-    public char getTileValue(int x,int y){
-        return boardArray[y][x];
-    }
-
-    //x=1
-    //tie =0
-    //o=-1
     public int checkEnd(){
         int playerX=0;
         int playerO=0;
         int score =0;
 
-        //hori check
         for(int i=0;i<3;i++){
             playerX=0;
             playerO=0;
@@ -127,7 +118,6 @@ public class Board{
             }
         }
 
-        //verti check
         for(int j=0;j<3;j++){
             playerX=0;
             playerO=0;
@@ -187,8 +177,20 @@ public class Board{
         return score;
     }
 
+    public boolean boardFull(){
+        for(int i =0;i<3;i++){
+            for(int j =0;j<3;j++){
+                if(boardArray[j][i]=='0'){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     public void setTileValue(int x,int y){
-        if(boardArray[y][x]=='0' && boardFull()==false){
+        if(boardArray[y][x]=='0' && boardFull()==false && winner == 0){
             boardArray[y][x]=player;
             playerChange();
             checkEnd();
@@ -200,17 +202,8 @@ public class Board{
         playerChange();
     }
 
-    public boolean boardFull(){
-
-        for(int i =0;i<3;i++){
-            for(int j =0;j<3;j++){
-                if(boardArray[j][i]=='0'){
-                    return false;
-                }
-            }
-        }
-
-        return true;
+    public char getTileValue(int x,int y){
+        return boardArray[y][x];
     }
 
     public String getDrawString(){
