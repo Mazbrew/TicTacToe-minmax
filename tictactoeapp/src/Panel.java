@@ -30,7 +30,7 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
     private int sliderHeight= 15;
     private int sliderWidth =75;
     private int buttonSize = 25;
-    private boolean ai = false;
+    private boolean ai = true;
     private Button aiButton;
     private Button resetButton;
     final BufferedImage image = ImageIO.read(getClass().getResource("images/reset.png"));
@@ -61,7 +61,6 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
         for(int i=0;i<3;i++){
             for(int j =0;j<3;j++){
                 if(squareArray[i][j].checkLocation(x,y)==true){
-                    System.out.println(j+" "+i);
                     board.setTileValue(j, i);
                     break;
                 }
@@ -225,9 +224,6 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
 
     public void setAi(){
         ai=!ai;
-    }
-
-    public boolean getAi(){
-        return ai;
+        board.setAi(ai);
     }
 }

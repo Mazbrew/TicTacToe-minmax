@@ -1,11 +1,13 @@
 public class Board{
-    private char[][] boardArray = new char[3][3];
-    private int turnCount = 0;
-    private char player = 'x';
+    private char[][] boardArray=new char[3][3];
+    private int turnCount = -1;
+    private char player = ' ';
     private int winner =0;
+    private boolean ai = true;
 
     public Board(){
         clearBoard();
+        playerChange();
     }
 
     public void clearBoard(){
@@ -18,17 +20,79 @@ public class Board{
     }
 
     public void playerChange(){
-        if(turnCount%2==0){
-            player ='o';
-        }else{
-            player ='x';
-        }
         turnCount++;
+        if(turnCount%2==0){
+            player ='x';
+            if(ai==true){
+                runAiPlayer();
+                checkEnd();
+                playerChange();
+            }
+        }else{
+            player ='o';
+        }
     }
 
-    public void playerReset(){
-        player = 'x';
+
+    public int minmaxPlayer(boolean isMax){
+        int score = checkEnd();
+
+        if(score == 1 || score == -1){
+            return score;
+        }else if(boardFull()==true && score == 0){
+            return 0;
+        }
+
+        if(isMax == true){
+            int best = -10000;
+            for(int i=0;i<3;i++){
+                for(int j=0;j<3;j++){
+                    if(boardArray[i][j]=='0'){
+                        boardArray[i][j]='x';
+                        best = Math.max(best,minmaxPlayer(!isMax));
+                        boardArray[i][j]='0';
+                    }
+                }
+            }
+            return best;
+        }else{
+            int best = 10000;
+            for(int i=0;i<3;i++){
+                for(int j=0;j<3;j++){
+                    if(boardArray[i][j]=='0'){
+                        boardArray[i][j]='o';
+                        best = Math.min(best,minmaxPlayer(!isMax));
+                        boardArray[i][j]='0';
+                    }
+                }
+            }
+            return best;
+        }
     }
+
+    public void runAiPlayer(){
+        bestMove move = new bestMove();
+        int score = -10000;
+        int tempscore=0;
+
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                if(boardArray[i][j]=='0'){
+                    boardArray[i][j] = 'x';
+                    tempscore = minmaxPlayer(false);
+                    boardArray[i][j] = '0';
+
+                    if(tempscore>score){
+                        score = tempscore;
+                        move.setX(j);
+                        move.setY(i);
+                    }
+                }
+            }
+        }
+        boardArray[move.getY()][move.getX()] = player;
+    }
+
 
     public char getTileValue(int x,int y){
         return boardArray[y][x];
@@ -37,9 +101,10 @@ public class Board{
     //x=1
     //tie =0
     //o=-1
-    public void checkEnd(){
+    public int checkEnd(){
         int playerX=0;
         int playerO=0;
+        int score =0;
 
         //hori check
         for(int i=0;i<3;i++){
@@ -56,9 +121,9 @@ public class Board{
                 }
             }
             if(playerX==3){
-                winner=1;
+                score=1;
             }else if(playerO==3){
-                winner=-1;
+                score=-1;
             }
         }
 
@@ -77,9 +142,9 @@ public class Board{
                 }
             }
             if(playerX==3){
-                winner=1;
+                score=1;
             }else if(playerO==3){
-                winner=-1;
+                score=-1;
             }
         }
 
@@ -95,9 +160,9 @@ public class Board{
                 break;
             }
             if(playerX==3){
-                winner=1;
+                score=1;
             }else if(playerO==3){
-                winner=-1;
+                score=-1;
             }
         }
 
@@ -113,28 +178,26 @@ public class Board{
                 break;
             }
             if(playerX==3){
-                winner=1;
+                score=1;
             }else if(playerO==3){
-                winner=-1;
+                score=-1;
             }
         }
+
+        return score;
     }
 
     public void setTileValue(int x,int y){
-        if(boardArray[y][x]=='0' && winner==0){
+        if(boardArray[y][x]=='0' && boardFull()==false){
             boardArray[y][x]=player;
             playerChange();
             checkEnd();
         }
     }
 
-    public int getWinner(){
-        return winner;
-    }
-
     public void setTurnCount(){
-        turnCount=0;
-        playerReset();
+        turnCount=-1;
+        playerChange();
     }
 
     public boolean boardFull(){
@@ -151,6 +214,7 @@ public class Board{
     }
 
     public String getDrawString(){
+        winner = checkEnd();
         if(boardFull()==true && winner==0){
             return "TIE";
         }else if(winner==1){
@@ -160,5 +224,9 @@ public class Board{
         }
 
         return player + "'s turn";
+    }
+
+    public void setAi(boolean set){
+        ai = set;
     }
 }
