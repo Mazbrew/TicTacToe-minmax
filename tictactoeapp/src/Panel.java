@@ -78,15 +78,6 @@ public class Panel extends JPanel implements MouseInputListener,KeyListener{
         }
     }
 
-    @Override
-    protected void paintComponent(Graphics g){
-        g.setColor(new Color(240,234,214));
-        g.fillRect(0, 50, 400, 400);
-        paintTopBar(g);
-        paintBoard(g);
-        paintAnnouncer(g);
-    }
-
     public void paintTopBar(Graphics g){
         g.setColor(new Color(211,211,211).darker().darker());
         g.fillRect(0, 0, 400, 50);
